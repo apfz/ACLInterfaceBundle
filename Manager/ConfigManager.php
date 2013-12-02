@@ -13,6 +13,7 @@ namespace Ifgm\ACLInterfaceBundle\Manager;
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpKernel\Kernel;
 
 class ConfigManager implements ConfigManagerInterface
 {
@@ -21,7 +22,7 @@ class ConfigManager implements ConfigManagerInterface
      *
      * @param string $path
      */
-    public function __construct($kernel, $path, $maskBuilder)
+    public function __construct(Kernel $kernel, $path, $maskBuilder)
     {
         $this->maskBuilder = $maskBuilder;
         $path = $kernel->locateResource('@'.$path);

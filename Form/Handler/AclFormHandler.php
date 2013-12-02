@@ -9,9 +9,7 @@
 
 namespace Ifgm\ACLInterfaceBundle\Form\Handler;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
-use Ifgm\ACLInterfaceBundle\Form\Type\AclFormType;
 use Ifgm\ACLInterfaceBundle\Manager\AclManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;

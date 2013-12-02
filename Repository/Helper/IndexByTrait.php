@@ -2,10 +2,6 @@
 
 namespace Ifgm\ACLInterfaceBundle\Repository\Helper;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
-use Ifgm\ACLInterfaceBundle\Model\AclInterface;
-
 /**
  * IndexByTrait
  * Trait to add $this->setIndexBy($query, $fieldName) to a repository

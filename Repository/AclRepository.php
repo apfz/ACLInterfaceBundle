@@ -15,8 +15,8 @@ class AclRepository extends EntityRepository
     /**
      * Find an ACL by user and object
      *
-     * @param $user
-     * @param $object
+     * @param mixed $user
+     * @param mixed $object
      *
      * @return AclInterface|null
      */
@@ -39,8 +39,8 @@ class AclRepository extends EntityRepository
     /**
      * Revoke all roles of an user to an object
      *
-     * @param $user
-     * @param $object
+     * @param mixed $user
+     * @param mixed $object
      */
     public function revokeForUserAndObject($user, $object)
     {
@@ -62,7 +62,7 @@ class AclRepository extends EntityRepository
     /**
      * Revoke all roles of an user to all object (user deletion)
      *
-     * @param $user
+     * @param mixed $user
      */
     public function revokeAllFromUser($user)
     {
@@ -81,7 +81,7 @@ class AclRepository extends EntityRepository
     /**
      * Revoke all roles on an object
      *
-     * @param $object
+     * @param mixed $object
      */
     public function revokeAllOnObject($object)
     {
@@ -102,7 +102,7 @@ class AclRepository extends EntityRepository
      * Find ACLs by users and object
      *
      * @param array<User> $user
-     * @param $object
+     * @param mixed $object
      *
      * @return Collection
      */

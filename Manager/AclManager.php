@@ -16,9 +16,9 @@ use Ifgm\ACLInterfaceBundle\Form\Handler\AclFormHandler;
 use Ifgm\ACLInterfaceBundle\Form\Type\AclFormType;
 use Ifgm\ACLInterfaceBundle\Security\Acl\Permission\MaskBuilderInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Form;
 
 /**
  * Class AclManager
@@ -45,7 +45,7 @@ class AclManager
     /**
      * Construct the AclManager
      *
-     * @param Container $container
+     * @param Container     $container
      * @param ObjectManager $objectManager
      * @param string        $aclEntity
      * @param string        $maskBuilder
@@ -61,9 +61,9 @@ class AclManager
     /**
      * Add role to a user on an object
      *
-     * @param $role
-     * @param $user
-     * @param $object
+     * @param string $role
+     * @param mixed  $user
+     * @param mixed  $object
      */
     public function addRole($role, $user, $object)
     {
@@ -89,9 +89,9 @@ class AclManager
     /**
      * Remove role from a user on an object
      *
-     * @param $role
-     * @param $user
-     * @param $object
+     * @param string $role
+     * @param mixed  $user
+     * @param mixed  $object
      */
     public function revokeRole($role, $user, $object)
     {
@@ -113,8 +113,8 @@ class AclManager
      * Set roles to a user on an object
      *
      * @param array $roles
-     * @param $user
-     * @param $object
+     * @param mixed $user
+     * @param mixed $object
      */
     public function setRoles(array $roles, $user, $object)
     {
@@ -142,8 +142,8 @@ class AclManager
      * Set roles (via bitmask) to a user on an object
      *
      * @param int $bitmask
-     * @param $user
-     * @param $object
+     * @param mixed $user
+     * @param mixed $object
      */
     public function setBitmask($bitmask, $user, $object)
     {
@@ -165,8 +165,8 @@ class AclManager
     /**
      * Remove all roles from an user on an object
      *
-     * @param $user
-     * @param $object
+     * @param mixed $user
+     * @param mixed $object
      */
     public function revokeAll($user, $object)
     {
@@ -177,7 +177,7 @@ class AclManager
     /**
      * Remove all roles from an user
      *
-     * @param $user
+     * @param mixed $user
      */
     public function revokeAllRolesFromUser($user)
     {
@@ -188,7 +188,7 @@ class AclManager
     /**
      * Remove all roles on an object
      *
-     * @param $object
+     * @param mixed $object
      */
     public function revokeAllRolesOnObject($object)
     {
@@ -222,7 +222,7 @@ class AclManager
     /**
      * Return list of users and theirs roles affected to an object
      *
-     * @param $object
+     * @param mixed $object
      *
      * @return array
      */
@@ -275,11 +275,11 @@ class AclManager
     /**
      * Render the form as a Response
      *
-     * @param $form
+     * @param Form $form
      *
      * @return Response
      */
-    public function renderForm($form)
+    public function renderForm(Form $form)
     {
         return new Response($this->container->get('templating')->render(
             'IfgmACLInterfaceBundle:Default:index.html.twig',
@@ -290,7 +290,7 @@ class AclManager
     /**
      * Get a new instance of MaskBuilder
      *
-     * @param $bitmask
+     * @param int $bitmask
      *
      * @return mixed
      * @throws \Symfony\Component\Config\Definition\Exception\InvalidTypeException
