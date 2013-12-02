@@ -2,9 +2,6 @@
 
 namespace Ifgm\ACLInterfaceBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Ifgm\ACLInterfaceBundle\Model\AclInterface;
-
 /**
  * Entity interface
  *

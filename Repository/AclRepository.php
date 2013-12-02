@@ -3,6 +3,8 @@
 namespace Ifgm\ACLInterfaceBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Ifgm\ACLInterfaceBundle\Entity\EntityInterface;
+use Ifgm\ACLInterfaceBundle\Entity\UserInterface;
 use Ifgm\ACLInterfaceBundle\Model\AclInterface;
 
 /**
@@ -15,12 +17,12 @@ class AclRepository extends EntityRepository
     /**
      * Find an ACL by user and object
      *
-     * @param mixed $user
-     * @param mixed $object
+     * @param UserInterface   $user
+     * @param EntityInterface $object
      *
      * @return AclInterface|null
      */
-    public function findByUserAndObject($user, $object)
+    public function findByUserAndObject(UserInterface $user, EntityInterface $object)
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -39,10 +41,10 @@ class AclRepository extends EntityRepository
     /**
      * Revoke all roles of an user to an object
      *
-     * @param mixed $user
-     * @param mixed $object
+     * @param UserInterface   $user
+     * @param EntityInterface $object
      */
-    public function revokeForUserAndObject($user, $object)
+    public function revokeForUserAndObject(UserInterface $user, EntityInterface $object)
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -62,9 +64,9 @@ class AclRepository extends EntityRepository
     /**
      * Revoke all roles of an user to all object (user deletion)
      *
-     * @param mixed $user
+     * @param UserInterface $user
      */
-    public function revokeAllFromUser($user)
+    public function revokeAllFromUser(UserInterface $user)
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -81,9 +83,9 @@ class AclRepository extends EntityRepository
     /**
      * Revoke all roles on an object
      *
-     * @param mixed $object
+     * @param EntityInterface $object
      */
-    public function revokeAllOnObject($object)
+    public function revokeAllOnObject(EntityInterface $object)
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -102,11 +104,11 @@ class AclRepository extends EntityRepository
      * Find ACLs by users and object
      *
      * @param array<User> $user
-     * @param mixed $object
+     * @param EntityInterface $object
      *
      * @return Collection
      */
-    public function getUsersRolesOnObject(array $users, $object)
+    public function getUsersRolesOnObject(array $users, EntityInterface $object)
     {
         $userList = array();
         foreach ($users as $user) {
@@ -130,12 +132,11 @@ class AclRepository extends EntityRepository
     /**
      * Find ACLs by all users on an object
      *
-     * @param array<User> $user
-     * @param $object
+     * @param EntityInterface $object
      *
      * @return Collection
      */
-    public function getAllRolesOnObject($object)
+    public function getAllRolesOnObject(EntityInterface $object)
     {
         $qb = $this->createQueryBuilder('a');
 
