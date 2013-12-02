@@ -11,6 +11,7 @@
 
 namespace Ifgm\ACLInterfaceBundle\Manager;
 
+use Ifgm\ACLInterfaceBundle\Entity\EntityInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\HttpKernel\Kernel;
@@ -20,7 +21,9 @@ class ConfigManager implements ConfigManagerInterface
     /**
      * Construct the manager
      *
+     * @param Kernel $kernel
      * @param string $path
+     * @param string $maskBuilder
      */
     public function __construct(Kernel $kernel, $path, $maskBuilder)
     {
@@ -44,10 +47,11 @@ class ConfigManager implements ConfigManagerInterface
     /**
      * Get config for namespace
      *
-     * @param $entity
+     * @param EntityInterface $entity
+     *
      * @return bool
      */
-    public function getConfig($entity)
+    public function getConfig(EntityInterface $entity)
     {
         $namespace = get_class($entity);
 
@@ -62,10 +66,12 @@ class ConfigManager implements ConfigManagerInterface
     /**
      * Get form config for namespace
      *
-     * @param $entity
-     * @return bool
+     * @param EntityInterface $entity
+     *
+     * @return array|bool
+     * @throws InvalidConfigurationException
      */
-    public function getFormConfig($entity)
+    public function getFormConfig(EntityInterface $entity)
     {
         $namespace = get_class($entity);
 
@@ -97,7 +103,7 @@ class ConfigManager implements ConfigManagerInterface
      *
      * @return array
      */
-    private function replaceParameters($arr, $replace)
+    private function replaceParameters(array $arr, array $replace)
     {
         $rarr = array();
         foreach ($arr as $k => $v) {

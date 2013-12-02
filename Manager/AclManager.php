@@ -19,6 +19,9 @@ use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
+use Ifgm\ACLInterfaceBundle\Entity\UserInterface;
+use Ifgm\ACLInterfaceBundle\Entity\EntityInterface;
 
 /**
  * Class AclManager
@@ -61,11 +64,11 @@ class AclManager
     /**
      * Add role to a user on an object
      *
-     * @param string $role
-     * @param mixed  $user
-     * @param mixed  $object
+     * @param string          $role
+     * @param UserInterface   $user
+     * @param EntityInterface $object
      */
-    public function addRole($role, $user, $object)
+    public function addRole($role, UserInterface $user, EntityInterface $object)
     {
         $acls = $this->objectManager->getRepository($this->aclEntity)
             ->findByUserAndObject($user, $object);
@@ -89,11 +92,11 @@ class AclManager
     /**
      * Remove role from a user on an object
      *
-     * @param string $role
-     * @param mixed  $user
-     * @param mixed  $object
+     * @param string          $role
+     * @param UserInterface   $user
+     * @param EntityInterface $object
      */
-    public function revokeRole($role, $user, $object)
+    public function revokeRole($role, UserInterface $user, EntityInterface $object)
     {
         $acls = $this->objectManager->getRepository($this->aclEntity)
             ->findByUserAndObject($user, $object);
@@ -112,11 +115,11 @@ class AclManager
     /**
      * Set roles to a user on an object
      *
-     * @param array $roles
-     * @param mixed $user
-     * @param mixed $object
+     * @param array<string>   $roles
+     * @param UserInterface   $user
+     * @param EntityInterface $object
      */
-    public function setRoles(array $roles, $user, $object)
+    public function setRoles(array $roles, UserInterface $user, EntityInterface $object)
     {
         $acls = $this->objectManager->getRepository($this->aclEntity)
             ->findByUserAndObject($user, $object);
@@ -141,11 +144,11 @@ class AclManager
     /**
      * Set roles (via bitmask) to a user on an object
      *
-     * @param int $bitmask
-     * @param mixed $user
-     * @param mixed $object
+     * @param int             $bitmask
+     * @param UserInterface   $user
+     * @param EntityInterface $object
      */
-    public function setBitmask($bitmask, $user, $object)
+    public function setBitmask($bitmask, UserInterface $user, EntityInterface $object)
     {
         $acls = $this->objectManager->getRepository($this->aclEntity)
             ->findByUserAndObject($user, $object);
@@ -165,10 +168,10 @@ class AclManager
     /**
      * Remove all roles from an user on an object
      *
-     * @param mixed $user
-     * @param mixed $object
+     * @param UserInterface   $user
+     * @param EntityInterface $object
      */
-    public function revokeAll($user, $object)
+    public function revokeAll(UserInterface $user, EntityInterface $object)
     {
         $this->objectManager->getRepository($this->aclEntity)
             ->revokeForUserAndObject($user, $object);
@@ -177,9 +180,9 @@ class AclManager
     /**
      * Remove all roles from an user
      *
-     * @param mixed $user
+     * @param UserInterface $user
      */
-    public function revokeAllRolesFromUser($user)
+    public function revokeAllRolesFromUser(UserInterface $user)
     {
         $this->objectManager->getRepository($this->aclEntity)
             ->revokeAllFromUser($user);
@@ -188,9 +191,9 @@ class AclManager
     /**
      * Remove all roles on an object
      *
-     * @param mixed $object
+     * @param EntityInterface $object
      */
-    public function revokeAllRolesOnObject($object)
+    public function revokeAllRolesOnObject(EntityInterface $object)
     {
         $this->objectManager->getRepository($this->aclEntity)
             ->revokeAllOnObject($object);
@@ -199,12 +202,12 @@ class AclManager
     /**
      * Get all roles on an object for an array of user
      *
-     * @param array $users
-     * @param mixed $object the target entity
+     * @param array<UserInterface> $users
+     * @param EntityInterface      $object the target entity
      *
      * @return array
      */
-    public function getUsersRoles(array $users, $object)
+    public function getUsersRoles(array $users, EntityInterface $object)
     {
         $acls = $this->objectManager->getRepository($this->aclEntity)
             ->getUsersRolesOnObject($users, $object);
@@ -222,11 +225,11 @@ class AclManager
     /**
      * Return list of users and theirs roles affected to an object
      *
-     * @param mixed $object
+     * @param EntityInterface $object
      *
      * @return array
      */
-    public function getAllRolesOnObject($object)
+    public function getAllRolesOnObject(EntityInterface $object)
     {
         $acls = $this->objectManager->getRepository($this->aclEntity)
             ->getAllRolesOnObject($object);
@@ -244,12 +247,13 @@ class AclManager
     /**
      * Manage form (valid, persist, and optionally flush)
      *
-     * @param array $users
-     * @param mixed $object
-     * @param bool $andFlush Should we flush after updates ?
-     * @return AclFormType|\Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
+     * @param array           $users
+     * @param EntityInterface $object
+     * @param bool            $andFlush Should we flush after updates ?
+     *
+     * @return AclFormType|Form|FormInterface
      */
-    public function manageForm($users, $object, $andFlush = true)
+    public function manageForm(array $users, EntityInterface $object, $andFlush = true)
     {
         $acls = $this->container->get('ifgm_acl_interface.config_manager_chain')->getFormConfig($object);
         $form = new AclFormType(null, null, array(
@@ -292,7 +296,7 @@ class AclManager
      *
      * @param int $bitmask
      *
-     * @return mixed
+     * @return MaskBuilderInterface
      * @throws \Symfony\Component\Config\Definition\Exception\InvalidTypeException
      */
     protected function createMaskBuilder($bitmask)

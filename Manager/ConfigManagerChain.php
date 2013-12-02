@@ -11,6 +11,8 @@
 
 namespace Ifgm\ACLInterfaceBundle\Manager;
 
+use Ifgm\ACLInterfaceBundle\Entity\EntityInterface;
+
 class ConfigManagerChain implements ConfigManagerInterface
 {
     /**
@@ -39,7 +41,7 @@ class ConfigManagerChain implements ConfigManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfig($entity)
+    public function getConfig(EntityInterface $entity)
     {
         foreach ($this->configManagers as $configManager) {
             $result = $configManager->getConfig($entity);

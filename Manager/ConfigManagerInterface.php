@@ -11,13 +11,15 @@
 
 namespace Ifgm\ACLInterfaceBundle\Manager;
 
+use Ifgm\ACLInterfaceBundle\Entity\EntityInterface;
+
 interface ConfigManagerInterface {
     /**
      * Get the ACLs to manage for this entity
      *
-     * @param string $entity
+     * @param EntityInterface $entity
      *
      * @return array
      */
-    public function getConfig($entity);
+    public function getConfig(EntityInterface $entity);
 }
