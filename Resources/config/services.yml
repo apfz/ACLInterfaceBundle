@@ -1,0 +1,46 @@
+parameters:
+    ifgm_acl_interface.config_manager_chain.class: Ifgm\ACLInterfaceBundle\Manager\ConfigManagerChain
+    ifgm_acl_interface.config_manager.class: Ifgm\ACLInterfaceBundle\Manager\ConfigManager
+
+services:
+#    ifgm_acl_interface.example:
+#        class: %ifgm_acl_interface.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    ifgm_front.front_acl:
+        class: %ifgm_acl_interface.config_manager.class%
+        arguments:
+            - @kernel
+            - %ifgm_front.acl.path%
+            - %ifgm_acl_interface.mask_builder.class%
+        tags :
+            - {name: ifgm_acl_interface.config_manager}
+
+    ifgm_acl_interface.config_manager_chain:
+        class: %ifgm_acl_interface.config_manager_chain.class%
+
+    ifgm_acl_interface.form_manager:
+        class: %ifgm_acl_interface.form_manager.class%
+
+    ifgm.acl_manager:
+        class: Ifgm\ACLInterfaceBundle\Manager\AclManager
+        arguments:
+            - @service_container
+            - @doctrine.orm.entity_manager
+            - Ifgm\FrontBundle\Entity\Acl
+            - %ifgm_acl_interface.mask_builder.class%
+
+    ifgm_acl_interface.permission_map:
+        class: %ifgm_acl_interface.permission_map.class%
+        public: false
+
+    ifgm_acl_interface.acl_voter:
+        class:      %ifgm_acl_interface.acl_voter.class%
+        arguments:
+          - @doctrine.orm.entity_manager
+          - @ifgm_acl_interface.permission_map
+          - %ifgm_acl_interface.user.class%
+          - %ifgm_acl_interface.mask_builder.class%
+        public:     false
+        tags:
+            - { name: security.voter }

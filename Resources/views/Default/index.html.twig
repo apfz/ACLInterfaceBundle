@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+
+    {{ form_errors(form.users) }}
+
+    <ul>
+    {% for userField in form.users %}
+       <li>
+           {{ userField.vars.value.username }}
+           {{ form_errors(userField.acls) }}
+           {{ form_widget(userField.acls) }}
+       </li>
+    {% endfor %}
+    </ul>
+
+{{ form_end(form) }}

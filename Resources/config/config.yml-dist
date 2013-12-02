@@ -1,0 +1,4 @@
+acls_interface:
+    acls_definition:
+        Entity\Namespace:
+            - ACL_NAME: ACL description
