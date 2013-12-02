@@ -25,10 +25,11 @@ services:
     ifgm.acl_manager:
         class: Ifgm\ACLInterfaceBundle\Manager\AclManager
         arguments:
-            - @service_container
+            - @request
             - @doctrine.orm.entity_manager
             - Ifgm\FrontBundle\Entity\Acl
             - %ifgm_acl_interface.mask_builder.class%
+        scope: request
 
     ifgm_acl_interface.permission_map:
         class: %ifgm_acl_interface.permission_map.class%

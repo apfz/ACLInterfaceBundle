@@ -16,10 +16,13 @@ use Ifgm\ACLInterfaceBundle\Form\Handler\AclFormHandler;
 use Ifgm\ACLInterfaceBundle\Form\Type\AclFormType;
 use Ifgm\ACLInterfaceBundle\Security\Acl\Permission\MaskBuilderInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Templating\EngineInterface;
 use Ifgm\ACLInterfaceBundle\Entity\UserInterface;
 use Ifgm\ACLInterfaceBundle\Entity\EntityInterface;
 
@@ -48,14 +51,21 @@ class AclManager
     /**
      * Construct the AclManager
      *
-     * @param Container     $container
-     * @param ObjectManager $objectManager
-     * @param string        $aclEntity
-     * @param string        $maskBuilder
+     * @param Request            $request
+     * @param ObjectManager      $objectManager
+     * @param EngineInterface    $templating
+     * @param FormFactory        $formFactory
+     * @param ConfigManagerChain $configManagerChain
+     * @param ObjectManager      $objectManager
+     * @param string             $aclEntity
+     * @param string             $maskBuilder
      */
-    public function __construct(Container $container, ObjectManager $objectManager, $aclEntity, $maskBuilder)
+    public function __construct(Request $request, EngineInterface $templating, FormFactory $formFactory, ConfigManagerChain $configManagerChain, ObjectManager $objectManager, $aclEntity, $maskBuilder)
     {
-        $this->container = $container;
+        $this->request = $request;
+        $this->templating = $templating;
+        $this->formFactory = $formFactory;
+        $this->configManagerChain = $configManagerChain;
         $this->objectManager = $objectManager;
         $this->aclEntity = $aclEntity;
         $this->maskBuilder = $maskBuilder;
@@ -255,7 +265,7 @@ class AclManager
      */
     public function manageForm(array $users, EntityInterface $object, $andFlush = true)
     {
-        $acls = $this->container->get('ifgm_acl_interface.config_manager_chain')->getFormConfig($object);
+        $acls = $this->configManagerChain->getFormConfig($object);
         $form = new AclFormType(null, null, array(
             'action' => $this->generateUrl(
                 $this->get('request')->attributes->get('_route'),
@@ -264,14 +274,14 @@ class AclManager
             'method' => 'POST',
         ));
 
-        $form = $this->container->get('form.factory')->create($form, compact('users'), compact('acls'));
+        $form = $this->formFactory->create($form, compact('users'), compact('acls'));
 
         foreach ($this->getUsersRoles($users, $object) as $userId => $roles) {
             $form->get('users')[$userId]->get('acls')->setData(array_keys($roles));
         }
 
         $aclFormHandler = new AclFormHandler($this, $this->objectManager, $form, $object, $users);
-        $aclFormHandler->process($this->container->get('Request'), $andFlush);
+        $aclFormHandler->process($this->request, $andFlush);
 
         return $form;
     }
@@ -285,7 +295,7 @@ class AclManager
      */
     public function renderForm(Form $form)
     {
-        return new Response($this->container->get('templating')->render(
+        return new Response($this->templating->render(
             'IfgmACLInterfaceBundle:Default:index.html.twig',
             array('form' => $form->createView())
         ));
