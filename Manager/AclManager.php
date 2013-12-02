@@ -16,7 +16,6 @@ use Ifgm\ACLInterfaceBundle\Form\Handler\AclFormHandler;
 use Ifgm\ACLInterfaceBundle\Form\Type\AclFormType;
 use Ifgm\ACLInterfaceBundle\Security\Acl\Permission\MaskBuilderInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactory;
