@@ -27,7 +27,7 @@ class DefaultController extends Controller
 
         $form = $this->get('ifgm.acl_manager')->manageForm($userList, $address);
 
-        var_dump($this->get('security.context')->isGranted('EDIT', $address));
+        // var_dump($this->get('security.context')->isGranted('EDIT', $address));
 
         return $this->get('ifgm.acl_manager')->renderForm($form);
     }
