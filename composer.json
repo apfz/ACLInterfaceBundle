@@ -1,0 +1,37 @@
+{
+    "name": "ifgm/acl-interface-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony IfgmFoliageBundle",
+    "keywords": ["ACL interface and manager"],
+    "homepage": "https://bitbucket.org/ZeBigDuck/aclinterfacebundle",
+    "license": "",
+    "authors": [
+        {
+            "name": "Jérémy Hubert",
+            "email": "jeremy.hubert@infogroom.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "~2.1",
+        "symfony/form": "~2.1",
+        "symfony/security-bundle": "~2.1"
+    },
+    "require-dev": {
+        "twig/twig": "~1.5",
+        "doctrine/doctrine-bundle": "*",
+        "willdurand/propel-typehintable-behavior": "dev-master",
+        "symfony/yaml": "~2.1",
+        "symfony/validator": "~2.1"
+    },
+    "autoload": {
+        "psr-0": { "Ifgm\\ACLInterfaceBundle": "" }
+    },
+    "target-dir": "Ifgm/ACLInterfaceBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
