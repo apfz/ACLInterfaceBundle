@@ -26,6 +26,9 @@ services:
         class: Ifgm\ACLInterfaceBundle\Manager\AclManager
         arguments:
             - @request
+            - @templating
+            - @form.factory
+            - @ifgm_acl_interface.config_manager_chain
             - @doctrine.orm.entity_manager
             - Ifgm\FrontBundle\Entity\Acl
             - %ifgm_acl_interface.mask_builder.class%
