@@ -3,18 +3,6 @@ parameters:
     ifgm_acl_interface.config_manager.class: Ifgm\ACLInterfaceBundle\Manager\ConfigManager
 
 services:
-#    ifgm_acl_interface.example:
-#        class: %ifgm_acl_interface.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
-
-    ifgm_front.front_acl:
-        class: %ifgm_acl_interface.config_manager.class%
-        arguments:
-            - @kernel
-            - %ifgm_acl_interface.acl.class%
-            - %ifgm_acl_interface.mask_builder.class%
-        tags :
-            - {name: ifgm_acl_interface.config_manager}
 
     ifgm_acl_interface.config_manager_chain:
         class: %ifgm_acl_interface.config_manager_chain.class%
@@ -31,6 +19,7 @@ services:
             - @ifgm_acl_interface.config_manager_chain
             - @doctrine.orm.entity_manager
             - %ifgm_acl_interface.acl.class%
+            - %ifgm_acl_interface.user.class%
             - %ifgm_acl_interface.mask_builder.class%
         scope: request
 

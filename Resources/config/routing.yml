@@ -1,3 +1,0 @@
-ifgm_acl_interface_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: IfgmACLInterfaceBundle:Default:index }

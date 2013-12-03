@@ -59,7 +59,7 @@ class AclManager
      * @param string             $aclEntity
      * @param string             $maskBuilder
      */
-    public function __construct(Request $request, EngineInterface $templating, FormFactory $formFactory, ConfigManagerChain $configManagerChain, ObjectManager $objectManager, $aclEntity, $maskBuilder)
+    public function __construct(Request $request, EngineInterface $templating, FormFactory $formFactory, ConfigManagerChain $configManagerChain, ObjectManager $objectManager, $aclEntity, $userEntity, $maskBuilder)
     {
         $this->request = $request;
         $this->templating = $templating;
@@ -67,6 +67,7 @@ class AclManager
         $this->configManagerChain = $configManagerChain;
         $this->objectManager = $objectManager;
         $this->aclEntity = $aclEntity;
+        $this->userClass = $userEntity;
         $this->maskBuilder = $maskBuilder;
     }
 
@@ -273,7 +274,7 @@ class AclManager
             'method' => 'POST',
         ));
 
-        $form = $this->formFactory->create($form, compact('users'), compact('acls'));
+        $form = $this->formFactory->create($form, compact('users'), array('acls' => $acls, 'userClass' => $this->userClass));
 
         foreach ($this->getUsersRoles($users, $object) as $userId => $roles) {
             $form->get('users')[$userId]->get('acls')->setData(array_keys($roles));
