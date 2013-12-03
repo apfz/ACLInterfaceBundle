@@ -28,7 +28,7 @@ class Acl implements AclInterface
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="string", length=45, nullable=false)
      */
     protected $userId;
 
@@ -43,7 +43,7 @@ class Acl implements AclInterface
     /**
      * @var int
      *
-     * @ORM\Column(name="object_id", type="integer", nullable=false)
+     * @ORM\Column(name="object_id", type="string", length=45, nullable=false)
      */
     protected $objectId;
 
