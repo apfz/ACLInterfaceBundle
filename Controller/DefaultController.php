@@ -18,15 +18,8 @@ class DefaultController extends Controller
     public function indexAction($name)
     {
         $users = $this->get('doctrine.orm.entity_manager')->getRepository(get_class($this->getUser()))->findAllIndexedById();
-
-        $userList = array();
-        foreach ($users as $user) {
-            $userList[$user->getId()] = $user;
-        }
-
         $address = $this->get('doctrine.orm.entity_manager')->getRepository('IfgmFrontBundle:Address')->find(1);
-
-        $form = $this->get('ifgm.acl_manager')->manageForm($userList, $address);
+        $form = $this->get('ifgm.acl_manager')->manageForm($users, $address);
 
         return $this->get('ifgm.acl_manager')->renderForm($form);
     }

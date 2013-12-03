@@ -39,5 +39,6 @@ class IfgmACLInterfaceExtension extends Extension
         $container->setParameter('ifgm_acl_interface.permission_map.class', $config['permission_map']['class']);
         $container->setParameter('ifgm_acl_interface.acl_voter.class', $config['acl_voter']['class']);
         $container->setParameter('ifgm_acl_interface.user.class', $config['user']['class']);
+        $container->setParameter('ifgm_acl_interface.acl.class', $config['acl']['class']);
     }
 }

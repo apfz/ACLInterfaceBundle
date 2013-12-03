@@ -11,7 +11,7 @@ services:
         class: %ifgm_acl_interface.config_manager.class%
         arguments:
             - @kernel
-            - %ifgm_front.acl.path%
+            - %ifgm_acl_interface.acl.class%
             - %ifgm_acl_interface.mask_builder.class%
         tags :
             - {name: ifgm_acl_interface.config_manager}
@@ -30,7 +30,7 @@ services:
             - @form.factory
             - @ifgm_acl_interface.config_manager_chain
             - @doctrine.orm.entity_manager
-            - Ifgm\FrontBundle\Entity\Acl
+            - %ifgm_acl_interface.acl.class%
             - %ifgm_acl_interface.mask_builder.class%
         scope: request
 

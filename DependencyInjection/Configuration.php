@@ -59,6 +59,11 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('class')->end()
                     ->end()
                 ->end()
+                ->arrayNode('acl')
+                    ->children()
+                        ->scalarNode('class')->end()
+                    ->end()
+                ->end()
             ->end();
 
         // Here you should define the parameters that are allowed to
