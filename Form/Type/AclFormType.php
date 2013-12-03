@@ -14,7 +14,7 @@ class AclFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('users', 'collection', array(
-                'type' => new UserAclFormType($options['acls'], $options['userAcls'])
+                'type' => new UserAclFormType(get_class(reset($options['users'])), $options['acls'], $options['userAcls'])
             ))
             ->add('submit', 'submit', array('label' => 'Save'));
     }

@@ -9,12 +9,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class UserAclFormType extends AbstractType
 {
     /**
-     * @param string $class The User class name
+     * @param string $userClass The user class name
+     * @param array $acls
+     * @param array $userAcls
      */
-    public function __construct($acls, $userAcls)
+    public function __construct($userClass, array $acls, array $userAcls)
     {
-        $this->acls = $acls;
-        $this->userAcls = $userAcls;
+        $this->userClass = $userClass;
+        $this->acls      = $acls;
+        $this->userAcls  = $userAcls;
     }
 
     /**
@@ -34,7 +37,7 @@ class UserAclFormType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ifgm\FrontBundle\Entity\User',
+            'data_class' => $this->userClass,
         ));
     }
 

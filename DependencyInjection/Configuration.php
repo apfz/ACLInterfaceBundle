@@ -39,7 +39,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('mask_builder')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('class')->defaultValue('Ifgm\FrontBundle\Security\Acl\Permission\MaskBuilder')->end()
+                        ->scalarNode('class')->defaultValue('Ifgm\ACLInterfaceBundle\Security\Acl\Permission\MaskBuilder')->end()
                     ->end()
                 ->end()
                 ->arrayNode('permission_map')
