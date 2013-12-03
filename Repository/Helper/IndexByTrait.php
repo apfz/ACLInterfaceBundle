@@ -22,6 +22,11 @@ trait IndexByTrait
      */
     public function setIndexBy(Query $query, $fieldName)
     {
+        if (!strpos($query->getDQL(), 'WHERE')) {
+
+            return $query->setDQL($query->getDQL().' INDEX BY '.$fieldName);
+        }
+
         return $query->setDQL(str_replace('WHERE', 'INDEX BY '.$fieldName.' WHERE', $query->getDQL()));
     }
 }
