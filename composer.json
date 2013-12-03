@@ -4,7 +4,7 @@
     "description": "Symfony IfgmFoliageBundle",
     "keywords": ["ACL interface and manager"],
     "homepage": "https://bitbucket.org/ZeBigDuck/aclinterfacebundle",
-    "license": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jérémy Hubert",
