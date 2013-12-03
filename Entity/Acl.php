@@ -26,7 +26,7 @@ class Acl implements AclInterface
     protected $id;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="user_id", type="string", length=45, nullable=false)
      */
@@ -41,7 +41,7 @@ class Acl implements AclInterface
     protected $objectType;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="object_id", type="string", length=45, nullable=false)
      */
