@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "The working ACL for Symfony2, and ACL manager as form generator",
     "keywords": ["symfony2", "acl", "security", "interface"],
-    "homepage": "https://github.com/ZeBigDuck/ACLInterfaceBundle",
+    "homepage": "https://github.com/Ifgm/ACLInterfaceBundle",
     "license": "MIT",
     "authors": [
         {
