@@ -45,25 +45,6 @@ Entities which can have roles affected must implement `Ifgm\ACLInterfaceBundle\M
 
 Don't be scared, the only thing which is required to fit with these interfaces is a `getId()` function.
 
-And you'll have to make an Acl Entity, the following one should be ok
-
-```php
-<?php
-
-namespace Acme\DemoBundle\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
-use Ifgm\ACLInterfaceBundle\Entity\Acl as BaseAcl;
-
-/**
- * @ORM\Entity(repositoryClass="Ifgm\ACLInterfaceBundle\Repository\AclRepository")
- * @ORM\Table(name="ifgm_acl")
- */
-class Acl extends BaseAcl
-{
-}
-```
-
 ### 4. Configure the bundle
 
 You need to add some configuration to get it working
@@ -116,7 +97,6 @@ services:
 You are now able to manage ACL through form with the following :
 
 ```php
-<?php
     // Acme/DemoBundle/Controller/ForumController.php
     public function manageAclAction()
     {
@@ -182,9 +162,9 @@ Here you'll find the full configuration options, and default values
             class: Symfony\Component\Security\Acl\Permission\BasicPermissionMap
         acl_voter:
             class: Ifgm\ACLInterfaceBundle\Security\Authorization\Voter\AclVoter
-        user:
-            class: # Must be set
         acl:
+            class: Ifgm\ACLInterfaceBundle\Entity\Acl
+        user:
             class: # Must be set
 ```
 

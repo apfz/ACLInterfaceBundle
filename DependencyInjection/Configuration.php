@@ -61,7 +61,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('acl')
                     ->children()
-                        ->scalarNode('class')->end()
+                        ->scalarNode('class')->defaultValue('Ifgm\ACLInterfaceBundle\Entity\Acl')->end()
                     ->end()
                 ->end()
             ->end();

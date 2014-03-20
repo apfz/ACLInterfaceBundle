@@ -32,7 +32,7 @@ services:
         arguments:
           - @doctrine.orm.entity_manager
           - @ifgm_acl_interface.permission_map
-          - %ifgm_acl_interface.user.class%
+          - %ifgm_acl_interface.acl.class%
           - %ifgm_acl_interface.mask_builder.class%
         public:     false
         tags:
