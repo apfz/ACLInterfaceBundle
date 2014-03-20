@@ -54,8 +54,6 @@ You need to add some configuration to get it working
 ifgm_acl_interface:
     user:
         class: Acme\DemoBundle\Entity\User
-    acl:
-        class: Acme\DemoBundle\Entity\Acl
 ```
 
 You also need to declare which accesses can be given for your entities
