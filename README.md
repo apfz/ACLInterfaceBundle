@@ -83,7 +83,7 @@ services:
         class: %ifgm_acl_interface.config_manager.class%
         arguments:
             - @kernel
-            - AcmeDemoBundle/Resources/config/acl_config.yml
+            - AcmeDemoBundle/Resources/config/acls.yml
             # Take care to the path syntax ! The same as Ressource location (@Acme...) but without the "@"
             - %ifgm_acl_interface.mask_builder.class%
         tags :
@@ -101,9 +101,9 @@ You are now able to manage ACL through form with the following :
         // Get an array of users, please note they have to be indexed by id
         $users = $this->getDoctrine()
             ->getRepository('AcmeDemoBundle:User')
-            ->findAllIndexedById();
+            ->findAllAdmins();
 
-        $forum = $this->getDoctrine
+        $forum = $this->getDoctrine()
             ->getRepository('AcmeDemoBundle:Forum')
             ->find(1);
 
